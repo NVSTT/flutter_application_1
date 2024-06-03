@@ -16,6 +16,9 @@ class DBHelper {
       db.execute(
           'CREATE TABLE checklists(id TEXT PRIMARY KEY, title TEXT, isCompleted INTEGER, photo TEXT)', // новая таблица для чек-листов
         );
+      db.execute(
+          'CREATE TABLE checklist_items(itemNumber INTEGER PRIMARY KEY, description TEXT, isCompleted INTEGER, confirmationPhoto TEXT, checklistId TEXT)',
+        );
     },
     onUpgrade: (db, oldVersion, newVersion) {
       if (oldVersion < 2) {
@@ -72,32 +75,89 @@ class DBHelper {
     return db.query('checklists');
   }
 
-  static Future<void> updateChecklist(String id, Map<String, Object> data) async {
-    final db = await DBHelper.database();
-    await db.update(
-      'checklists',
-      data,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-static Future<void> deleteChecklist(String id) async {
-    final db = await DBHelper.database();
-    await db.delete(
-      'checklists',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
 
   static Future<void> insert(String table, Map<String, Object> data) async {
+      final db = await DBHelper.database();
+      db.insert(
+        table,
+        data,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+
+
+  static Future<List<Map<String, dynamic>>> getChecklistById(String id) async {
     final db = await DBHelper.database();
-    await db.insert(
-      table,
-      data,
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    return db.query(
+      'checklists',
+      where: 'id = ?',
+      whereArgs: [id],
     );
   }
+
+  static Future<void> updateChecklist(String id, Map<String, Object> data) async {
+    final db = await DBHelper.database();
+    db.update(
+      'checklists',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  static Future<void> deleteChecklist(String id) async {
+    final db = await DBHelper.database();
+    db.delete(
+      'checklists',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  // Добавление новой задачи в чек-лист
+static Future<void> addChecklistItem(Map<String, Object> data) async {
+  final db = await DBHelper.database();
+  await db.insert('checklist_items', data);
+}
+
+// Получение всех задач конкретного чек-листа
+static Future<List<Map<String, dynamic>>> getChecklistItems(String checklistId) async {
+  final db = await DBHelper.database();
+  return db.query(
+    'checklist_items',
+    where: 'checklistId = ?',
+    whereArgs: [checklistId],
+  );
+}
+
+// Обновление задачи в чек-листе
+static Future<void> updateChecklistItem(int itemNumber, Map<String, Object> data) async {
+  final db = await DBHelper.database();
+  await db.update(
+    'checklist_items',
+    data,
+    where: 'itemNumber = ?',
+    whereArgs: [itemNumber],
+  );
+}
+
+// Удаление задачи из чек-листа
+static Future<void> deleteChecklistItem(int itemNumber) async {
+  final db = await DBHelper.database();
+  await db.delete(
+    'checklist_items',
+    where: 'itemNumber = ?',
+    whereArgs: [itemNumber],
+  );
+}
+
+static Future<List<Map<String, dynamic>>> getChecklistItemsByChecklistId(String checklistId) async {
+  final db = await DBHelper.database();
+  final List<Map<String, dynamic>> result = await db.query(
+    'checklist_items',
+    where: 'checklistId = ?',
+    whereArgs: [checklistId],
+  );
+  return result;
+}
 }
