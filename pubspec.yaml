@@ -32,3 +32,6 @@ flutter:
     - assets/photo.png
     - assets/calendar.png
     - assets/docx.png
+    - checklist_photo.png
+    - assets/task_photo1.jpg
+    - assets/task_photo2.jpg

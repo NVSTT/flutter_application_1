@@ -160,4 +160,34 @@ static Future<List<Map<String, dynamic>>> getChecklistItemsByChecklistId(String 
   );
   return result;
 }
+void addTestChecklist() async {
+  // Добавляем новый чек-лист
+  String checklistId = DateTime.now().toString();
+  await DBHelper.addChecklist({
+    'id': checklistId,
+    'title': 'Тестовый чек-лист',
+    'isCompleted': 0,
+    'photo': 'flutter_application_1/assets/checklist_photo.jpg',
+  });
+
+  // Добавляем задачи в чек-лист
+  await DBHelper.addChecklistItem({
+    'itemNumber': 1,
+    'description': 'Тестовая задача 1',
+    'isCompleted': 0,
+    'confirmationPhoto': 'flutter_application_1/assets/task_photo1.jpg',
+    'checklistId': checklistId,
+  });
+
+  await DBHelper.addChecklistItem({
+    'itemNumber': 2,
+    'description': 'Тестовая задача 2',
+    'isCompleted': 0,
+    'confirmationPhoto': 'flutter_application_1/assets/task_photo2.jpg',
+    'checklistId': checklistId,
+  });
+
+  // ... добавьте больше задач по аналогии, если нужно
+}
+
 }
