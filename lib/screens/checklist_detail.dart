@@ -1,17 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/sqflite/db_helper.dart';
-import '/screens/checklist_screen.dart';
+import 'package:flutter_application_1/screens/checklist_screen.dart';
 import 'dart:io';
 
 class ChecklistDetailScreen extends StatefulWidget {
   final String checklistId;
+  final GlobalKey<FormState> formKey;
+  final String checklistTitle;
+  final Future<List<Map<String, dynamic>>> checklistFuture;
 
-  ChecklistDetailScreen(this.checklistId);
+  ChecklistDetailScreen(this.checklistId, this.formKey, this.checklistTitle, this.checklistFuture);
 
   @override
   _ChecklistDetailScreenState createState() => _ChecklistDetailScreenState();
 }
 
+
 class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
+  late GlobalKey<FormState> _formKey;
+  late String checklistTitle;
+  late Future<List<Map<String, dynamic>>> _checklistFuture;
+
   @override
     void initState() {
       super.initState();

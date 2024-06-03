@@ -15,10 +15,15 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
     late Future<List<Map<String, dynamic>>> _checklistFuture;
     
     @override
+    void initState() {
+      super.initState();
+      _checklistFuture = DBHelper.getChecklists();
+    }
+    
      void _openChecklist(String id) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => ChecklistDetailScreen(id),
+          builder: (context) => ChecklistDetailScreen(id,_formKey,checklistTitle,_checklistFuture),
         ),
       );
     }
