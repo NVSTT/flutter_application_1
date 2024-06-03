@@ -1,6 +1,6 @@
 # flutter_application_1
 
-A new Flutter project.
+Мобильное прилодение Builder Check
 
 ## Getting Started
 
