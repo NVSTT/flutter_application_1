@@ -10,9 +10,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Главная страница'),
-      ),
+        appBar: AppBar(
+            title: Container(
+              color: Colors.grey[800], // серый фон
+              padding: EdgeInsets.all(8.0), 
+              child: Center(
+              child: Text('Главная страница',
+                style: TextStyle(color: Colors.white), // белый текст
+              ),
+            ),
+          ),
+          backgroundColor: Colors.grey[800], // делаем AppBar темно-серым
+          elevation: 0, // убираем тень
+        ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -87,10 +97,32 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Container(
-                height: 60.0,
+                height: 130.0,
                 child: ListTile(
-                  leading: Image.asset('assets/checklist.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
-                  title: Text('Создать чек-лист', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  leading: Image.asset('assets/checklist.png'),
+                  title: Center( // Добавлено центрирование
+                    child: Text('Создать чек-лист', style: TextStyle(fontSize: 30, color: Colors.black)),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>  ChecklistScreen()));
+                  },
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.white,
+              margin: EdgeInsets.all(10.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Container(
+                height: 130.0,
+                child: ListTile(
+                  leading: Image.asset('assets/calendar.png'),
+                  title: Center( // Добавлено центрирование
+                    child: Text('Календарный план', style: TextStyle(fontSize: 30, color: Colors.black)),
+                  ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CalendarScreen()));
@@ -105,28 +137,12 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Container(
-                height: 60.0,
+                height: 130.0,
                 child: ListTile(
-                  leading: Image.asset('assets/calendar.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
-                  title: Text('Календарный план', style: TextStyle(fontSize: 24, color: Colors.black)),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ChecklistScreen()));
-                  },
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              margin: EdgeInsets.all(10.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Container(
-                height: 60.0,
-                child: ListTile(
-                  leading: Image.asset('assets/photo.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
-                  title: Text('Фотоотчет', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  leading: Image.asset('assets/photo.png'),
+                  title: Center( // Добавлено центрирование
+                    child: Text('Фотоотчет', style: TextStyle(fontSize: 30, color: Colors.black)),
+                  ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => PhotoReportScreen()));
@@ -141,10 +157,12 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Container(
-                height: 60.0,
+                height: 130.0,
                 child: ListTile(
-                  leading: Image.asset('assets/docx.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
-                  title: Text('Отчетность', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  leading: Image.asset('assets/docx.png'),
+                  title: Center( // Добавлено центрирование
+                    child: Text('Отчетность', style: TextStyle(fontSize: 30, color: Colors.black)),
+                  ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ReportScreen()));
