@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         ),
       drawer: Drawer(
         child: ListView(
-          children: <Widget>[
+          children: <Widget>[ 
             FutureBuilder(
               future: DBHelper.getData('users'),
               builder: (ctx, snapshot) {
@@ -43,6 +43,9 @@ class HomeScreen extends StatelessWidget {
                     String lastName = userData['lastName'] ?? '';
                     String rank = userData['rank'] ?? '';
                     return UserAccountsDrawerHeader(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[800], // делаем фон серым
+                        ),
                       accountName: Text(firstName + ' ' + lastName),
                       accountEmail: Text(rank),
                       currentAccountPicture: CircleAvatar(
@@ -80,6 +83,19 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ReportScreen()));
+              },
+            ),
+            Divider(), // Добавляем полоску
+            ListTile(
+              title: Text('Настройки'),
+              onTap: () {
+                // Ваш код для перехода к экрану настроек...
+              },
+            ),
+            ListTile(
+              title: Text('Выход'),
+              onTap: () {
+                // Ваш код для выхода из системы...
               },
             ),
           ],

@@ -13,6 +13,9 @@ class DBHelper {
       db.execute(
         'CREATE TABLE users(username TEXT PRIMARY KEY, password TEXT, firstName TEXT, lastName TEXT, middleName TEXT, photo TEXT, rank TEXT)',
       );
+      db.execute(
+          'CREATE TABLE checklists(id TEXT PRIMARY KEY, title TEXT, isCompleted INTEGER, photo TEXT)', // новая таблица для чек-листов
+        );
     },
     onUpgrade: (db, oldVersion, newVersion) {
       if (oldVersion < 2) {
@@ -59,6 +62,34 @@ class DBHelper {
     return null; // или вернуть значение по умолчанию
   }
 }
+
+ static Future<void> addChecklist(Map<String, Object> data) async {
+    await DBHelper.insert('checklists', data);
+  }
+
+  static Future<List<Map<String, dynamic>>> getChecklists() async {
+    final db = await DBHelper.database();
+    return db.query('checklists');
+  }
+
+  static Future<void> updateChecklist(String id, Map<String, Object> data) async {
+    final db = await DBHelper.database();
+    await db.update(
+      'checklists',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+static Future<void> deleteChecklist(String id) async {
+    final db = await DBHelper.database();
+    await db.delete(
+      'checklists',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 
 
   static Future<void> insert(String table, Map<String, Object> data) async {
