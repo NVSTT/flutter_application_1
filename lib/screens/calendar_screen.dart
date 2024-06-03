@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_application_1/sqflite/db_helper.dart';
-import 'dart:io';
 
 class CalendarScreen extends StatefulWidget {
   @override
@@ -98,13 +97,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 return ListView.builder(
                   itemCount: value.length,
                   itemBuilder: (context, index) {
-                    final checklist = value[index];
-                    final imagePath = checklist['photo'];
                     return ListTile(
-                      title: Text(checklist['title']),
-                      leading: imagePath.isNotEmpty && File(imagePath).existsSync()
-                          ? Image.file(File(imagePath))
-                          : Icon(Icons.image_not_supported),
+                      title: Text(value[index].toString()),
+                      // Здесь можно отобразить другие детали задачи
                     );
                   },
                 );

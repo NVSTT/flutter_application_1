@@ -67,8 +67,18 @@ class _PhotoReportScreenState extends State<PhotoReportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Фотоотчет'),
-      ),
+            title: Container(
+              color: Colors.grey[800], // серый фон
+              padding: EdgeInsets.all(8.0), 
+              child: Center(
+              child: Text('Фотоотчет',
+                style: TextStyle(color: Colors.white), // белый текст
+              ),
+            ),
+          ),
+          backgroundColor: Colors.grey[800], // делаем AppBar темно-серым
+          elevation: 0, // убираем тень
+        ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
