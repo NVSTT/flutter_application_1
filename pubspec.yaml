@@ -28,3 +28,7 @@ flutter:
   assets:
     - assets/logo.png
     - assets/user_photo.jpg
+    - assets/checklist.png
+    - assets/photo.png
+    - assets/calendar.png
+    - assets/docx.png

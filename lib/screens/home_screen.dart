@@ -75,23 +75,27 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
+      body: Align(
+        alignment: Alignment.topCenter,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Card(
-              color: Colors.white, // устанавливаем цвет в белый
-              margin: EdgeInsets.all(10.0), // добавляем отступы со всех сторон
+              color: Colors.white,
+              margin: EdgeInsets.all(10.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ListTile(
-                leading: Icon(Icons.check_box),
-                title: Text('Создать чек-лист', style: TextStyle(fontSize: 24)),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChecklistScreen()));
-                },
+              child: Container(
+                height: 60.0,
+                child: ListTile(
+                  leading: Image.asset('assets/checklist.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
+                  title: Text('Создать чек-лист', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CalendarScreen()));
+                  },
+                ),
               ),
             ),
             Card(
@@ -100,13 +104,16 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ListTile(
-                leading: Icon(Icons.calendar_month),
-                title: Text('Календарный план', style: TextStyle(fontSize: 24)),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CalendarScreen()));
-                },
+              child: Container(
+                height: 60.0,
+                child: ListTile(
+                  leading: Image.asset('assets/calendar.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
+                  title: Text('Календарный план', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ChecklistScreen()));
+                  },
+                ),
               ),
             ),
             Card(
@@ -115,13 +122,16 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ListTile(
-                leading: Icon(Icons.photo),
-                title: Text('Фотоотчет', style: TextStyle(fontSize: 24)),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PhotoReportScreen()));
-                },
+              child: Container(
+                height: 60.0,
+                child: ListTile(
+                  leading: Image.asset('assets/photo.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
+                  title: Text('Фотоотчет', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PhotoReportScreen()));
+                  },
+                ),
               ),
             ),
             Card(
@@ -130,13 +140,16 @@ class HomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ListTile(
-                leading: Icon(Icons.dock),
-                title: Text('Отчетность', style: TextStyle(fontSize: 24)),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ReportScreen()));
-                },
+              child: Container(
+                height: 60.0,
+                child: ListTile(
+                  leading: Image.asset('assets/docx.png'), // замените 'assets/your_logo.png' на путь к вашему логотипу
+                  title: Text('Отчетность', style: TextStyle(fontSize: 24, color: Colors.black)),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReportScreen()));
+                  },
+                ),
               ),
             ),
           ],
