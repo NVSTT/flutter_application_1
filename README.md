@@ -34,6 +34,11 @@ Builder Check - это мобильное приложение, разработ
 
 Команда разработчиков GB. Corp.
 
+КОНТАКТНАЯ ИНФОРМАЦИЯ 
+
+Моторный Ярослав https://vk.com/ymotorny
+Павлов Никита https://vk.com/nikitkamain
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
