@@ -16,6 +16,7 @@ dependencies:
   image_picker: ^1.1.2
   intl: ^0.17.0
   cupertino_icons: ^1.0.6
+  table_calendar: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,6 @@ flutter:
     - assets/photo.png
     - assets/calendar.png
     - assets/docx.png
-    - checklist_photo.png
+    - assets/checklist_photo.png
     - assets/task_photo1.jpg
     - assets/task_photo2.jpg
