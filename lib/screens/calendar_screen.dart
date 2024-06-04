@@ -3,6 +3,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_application_1/sqflite/db_helper.dart';
 
 class CalendarScreen extends StatefulWidget {
+  const CalendarScreen({super.key});
+
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }
@@ -61,8 +63,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
       appBar: AppBar(
         title: Container(
           color: Colors.grey[800], // серый фон
-          padding: EdgeInsets.all(8.0),
-          child: Center(
+          padding: const EdgeInsets.all(8.0),
+          child: const Center(
             child: Text(
               'Календарный план',
               style: TextStyle(color: Colors.white), // белый текст
@@ -89,7 +91,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             },
             eventLoader: _getEventsForDay,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: ValueListenableBuilder<List<dynamic>>(
               valueListenable: _selectedEvents,

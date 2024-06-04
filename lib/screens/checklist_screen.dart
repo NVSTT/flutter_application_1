@@ -4,6 +4,8 @@ import 'package:flutter_application_1/sqflite/db_helper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChecklistScreen extends StatefulWidget {
+  const ChecklistScreen({super.key});
+
   @override
   _ChecklistScreenState createState() => _ChecklistScreenState();
 }
@@ -20,8 +22,8 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   }
 
   Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _photoPath = image.path;
@@ -50,8 +52,8 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
       appBar: AppBar(
             title: Container(
               color: Colors.grey[800], // серый фон
-              padding: EdgeInsets.all(8.0), 
-              child: Center(
+              padding: const EdgeInsets.all(8.0), 
+              child: const Center(
               child: Text('Чек-лист',
                 style: TextStyle(color: Colors.white), // белый текст
               ),
@@ -67,33 +69,33 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Название чек-листа',
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _pickImage(),
-              child: Text('Выбрать фото'),
+              child: const Text('Выбрать фото'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _photoPath == null
-                ? Text('Фотография не выбрана.')
+                ? const Text('Фотография не выбрана.')
                 : Image.file(File(_photoPath!)),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _addChecklist(),
-              child: Text('Добавить чек-лист'),
+              child: const Text('Добавить чек-лист'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: DBHelper.getChecklists(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Произошла ошибка!'));
+                    return const Center(child: Text('Произошла ошибка!'));
                   } else {
                     return ListView.builder(
                       itemCount: snapshot.data?.length,
@@ -101,10 +103,9 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
                         var checklist = snapshot.data![index];
                         return ListTile(
                           title: Text(checklist['title']),
-                          subtitle: Text('Статус: ' +
-                              (checklist['isCompleted'] == 1
+                          subtitle: Text('Статус: ${checklist['isCompleted'] == 1
                                   ? 'Выполнено'
-                                  : 'В процессе')),
+                                  : 'В процессе'}'),
                           onTap: () {
                             Navigator.push(
                               context,
@@ -130,7 +131,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
 class ChecklistDetailScreen extends StatefulWidget {
   final Map<String, dynamic> checklist;
 
-  ChecklistDetailScreen(this.checklist);
+  const ChecklistDetailScreen(this.checklist, {super.key});
 
   @override
   _ChecklistDetailScreenState createState() => _ChecklistDetailScreenState();
@@ -150,8 +151,8 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
   }
 
   Future<void> _pickConfirmationPhoto() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _confirmationPhoto = File(image.path);
@@ -165,8 +166,8 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
       appBar: AppBar(
             title: Container(
               color: Colors.grey[800], // серый фон
-              padding: EdgeInsets.all(8.0), 
-              child: Center(
+              padding: const EdgeInsets.all(8.0), 
+              child: const Center(
               child: Text('Детали чек листа',
                 style: TextStyle(color: Colors.white), // белый текст
               ),
@@ -182,16 +183,16 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
           children: [
             Text(
               'Название: ${widget.checklist['title']}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Статус: ${widget.checklist['isCompleted'] == 1 ? 'Выполнено' : 'В процессе'}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildTaskForm(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: _buildTaskList(),
             ),
@@ -208,28 +209,28 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
         TextField(
           controller: _itemNumberController,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Номер задачи',
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextField(
           controller: _taskDescriptionController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Описание задачи',
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ElevatedButton(
           onPressed: _pickConfirmationPhoto,
-          child: Text('Выбрать фотографию подтверждения'),
+          child: const Text('Выбрать фотографию подтверждения'),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
             _addOrUpdateTask();
           },
-          child: Text('Добавить/Обновить задачу'),
+          child: const Text('Добавить/Обновить задачу'),
         ),
       ],
     );
@@ -240,9 +241,9 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
       future: DBHelper.getChecklistItemsByChecklistId(widget.checklist['id']),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Произошла ошибка при загрузке задач!'));
+          return const Center(child: Text('Произошла ошибка при загрузке задач!'));
         } else {
           final tasks = snapshot.data ?? [];
           return ListView.builder(
@@ -252,7 +253,7 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
               return ListTile(
                 title: Text(task['description']),
                 trailing: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {
                     _editTask(task);
                   },
@@ -282,7 +283,7 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
 
     final isUpdate = _itemNumberController.text.isNotEmpty;
 
-    // Конвертация данных в Map<String, Object>
+    // Convert data to Map<String, Object>
     final Map<String, Object> dataObject = data.map((key, value) => MapEntry(key, value as Object));
 
     if (isUpdate) {
@@ -292,9 +293,9 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
           _itemNumberController.clear();
           _confirmationPhoto = null;
         });
+        print('Task updated successfully');
       }).catchError((error) {
-        print('Ошибка при обновлении задачи: $error');
-        // Обработка ошибок при обновлении задачи
+        print('Error updating task: $error');
       });
     } else {
       DBHelper.addChecklistItem(dataObject).then((_) {
@@ -303,9 +304,9 @@ class _ChecklistDetailScreenState extends State<ChecklistDetailScreen> {
           _itemNumberController.clear();
           _confirmationPhoto = null;
         });
+        print('Task added successfully');
       }).catchError((error) {
-        print('Ошибка при добавлении задачи: $error');
-        // Обработка ошибок при добавлении задачи
+        print('Error adding task: $error');
       });
     }
   }

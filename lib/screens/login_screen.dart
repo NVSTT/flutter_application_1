@@ -3,6 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -18,9 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/logo.png', height: 150),
-            SizedBox(height: 40),
-            Text('Контроль и учет строительных работ', style: TextStyle(fontSize: 14)),
-            SizedBox(height: 20),
+            const SizedBox(height: 40),
+            const Text('Контроль и учет строительных работ', style: TextStyle(fontSize: 14)),
+            const SizedBox(height: 20),
             Visibility(
               visible: !_showLoginForm, 
               child: ElevatedButton(
@@ -29,12 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     _showLoginForm = true;
                   });
                 },
-                child: Text('Вход в систему'),
+                child: const Text('Вход в систему'),
               ),
             ),
             Visibility(
               visible: _showLoginForm,
-              child: LoginForm(),
+              child: const LoginForm(),
             ),
           ],
         ),
@@ -45,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -61,16 +65,16 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             width: 300, 
             child: Card(
               color: Colors.white, // Установите белый цвет фона
               child: Padding(
-                padding: EdgeInsets.all(16.0), 
+                padding: const EdgeInsets.all(16.0), 
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Логин'),
+                      decoration: const InputDecoration(labelText: 'Логин'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Пожалуйста, введите логин';
@@ -82,7 +86,7 @@ class _LoginFormState extends State<LoginForm> {
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Пароль'),
+                      decoration: const InputDecoration(labelText: 'Пароль'),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -94,7 +98,7 @@ class _LoginFormState extends State<LoginForm> {
                         _password = value!;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     OutlinedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -102,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
                           // Handle login logic here
                           final database = await openDatabase(join(await getDatabasesPath(), 'tasks.db'));
                           List<Map> list = await database.rawQuery('SELECT * FROM users WHERE username=? AND password=?', [_username, _password]);
-                          if (list.length > 0) {
+                          if (list.isNotEmpty) {
                             // Login successful
                             Navigator.of(context).pushReplacementNamed('/home');
                           } else {
@@ -111,14 +115,14 @@ class _LoginFormState extends State<LoginForm> {
                           }
                         }
                       },
-                      child: Text('Войти'),
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white, // Установите белый цвет кнопки
-                        side: BorderSide(color: Colors.black), // Установите черную обводку
+                        side: const BorderSide(color: Colors.black), // Установите черную обводку
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20), // Установите округлые углы
                         ),
                       ),
+                      child: const Text('Войти'),
                     ),
                   ],
                 ),

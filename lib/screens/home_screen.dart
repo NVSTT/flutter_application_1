@@ -7,14 +7,16 @@ import 'package:flutter_application_1/sqflite/db_helper.dart';
 import 'dart:io';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Container(
               color: Colors.grey[800], // серый фон
-              padding: EdgeInsets.all(8.0), 
-              child: Center(
+              padding: const EdgeInsets.all(8.0), 
+              child: const Center(
               child: Text('Главная страница',
                 style: TextStyle(color: Colors.white), // белый текст
               ),
@@ -30,14 +32,14 @@ class HomeScreen extends StatelessWidget {
               future: DBHelper.getData('users'),
               builder: (ctx, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else {
                   if (snapshot.error != null) {
-                    return Center(child: Text('Произошла ошибка!'));
+                    return const Center(child: Text('Произошла ошибка!'));
                   } else {
                     var userData = snapshot.data;
                     if (userData == null) {
-                      return Center(child: Text('Данные пользователя отсутствуют'));
+                      return const Center(child: Text('Данные пользователя отсутствуют'));
                     }
                     String firstName = userData['firstName'] ?? '';
                     String lastName = userData['lastName'] ?? '';
@@ -46,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.grey[800], // делаем фон серым
                         ),
-                      accountName: Text(firstName + ' ' + lastName),
+                      accountName: Text('$firstName $lastName'),
                       accountEmail: Text(rank),
                       currentAccountPicture: CircleAvatar(
                         backgroundImage: FileImage(File(userData['photo'])),
@@ -58,42 +60,42 @@ class HomeScreen extends StatelessWidget {
             ),
 
             ListTile(
-              title: Text('Создать чек-лист'),
+              title: const Text('Создать чек-лист'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ChecklistScreen()));
+                    builder: (context) => const ChecklistScreen()));
               },
             ),
             ListTile(
-              title: Text('Календарный план'),
+              title: const Text('Календарный план'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CalendarScreen()));
+                    builder: (context) => const CalendarScreen()));
               },
             ),
             ListTile(
-              title: Text('Фотоотчет'),
+              title: const Text('Фотоотчет'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PhotoReportScreen()));
+                    builder: (context) => const PhotoReportScreen()));
               },
             ),
             ListTile(
-              title: Text('Отчетность'),
+              title: const Text('Отчетность'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ReportScreen()));
+                    builder: (context) => const ReportScreen()));
               },
             ),
-            Divider(), // Добавляем полоску
+            const Divider(), // Добавляем полоску
             ListTile(
-              title: Text('Настройки'),
+              title: const Text('Настройки'),
               onTap: () {
                 // Ваш код для перехода к экрану настроек...
               },
             ),
             ListTile(
-              title: Text('Выход'),
+              title: const Text('Выход'),
               onTap: () {
                 // Ваш код для выхода из системы...
               },
@@ -108,80 +110,80 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Container(
+              child: SizedBox(
                 height: 130.0,
                 child: ListTile(
                   leading: Image.asset('assets/checklist.png'),
-                  title: Center( // Добавлено центрирование
+                  title: const Center( // Добавлено центрирование
                     child: Text('Создать чек-лист', style: TextStyle(fontSize: 30, color: Colors.black)),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>  ChecklistScreen()));
+                        builder: (context) =>  const ChecklistScreen()));
                   },
                 ),
               ),
             ),
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Container(
+              child: SizedBox(
                 height: 130.0,
                 child: ListTile(
                   leading: Image.asset('assets/calendar.png'),
-                  title: Center( // Добавлено центрирование
+                  title: const Center( // Добавлено центрирование
                     child: Text('Календарный план', style: TextStyle(fontSize: 30, color: Colors.black)),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CalendarScreen()));
+                        builder: (context) => const CalendarScreen()));
                   },
                 ),
               ),
             ),
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Container(
+              child: SizedBox(
                 height: 130.0,
                 child: ListTile(
                   leading: Image.asset('assets/photo.png'),
-                  title: Center( // Добавлено центрирование
+                  title: const Center( // Добавлено центрирование
                     child: Text('Фотоотчет', style: TextStyle(fontSize: 30, color: Colors.black)),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PhotoReportScreen()));
+                        builder: (context) => const PhotoReportScreen()));
                   },
                 ),
               ),
             ),
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: Container(
+              child: SizedBox(
                 height: 130.0,
                 child: ListTile(
                   leading: Image.asset('assets/docx.png'),
-                  title: Center( // Добавлено центрирование
+                  title: const Center( // Добавлено центрирование
                     child: Text('Отчетность', style: TextStyle(fontSize: 30, color: Colors.black)),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ReportScreen()));
+                        builder: (context) => const ReportScreen()));
                   },
                 ),
               ),
