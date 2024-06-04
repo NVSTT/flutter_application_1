@@ -4,8 +4,6 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 class PhotoReportScreen extends StatefulWidget {
-  const PhotoReportScreen({super.key});
-
   @override
   _PhotoReportScreenState createState() => _PhotoReportScreenState();
 }
@@ -13,23 +11,32 @@ class PhotoReportScreen extends StatefulWidget {
 class _PhotoReportScreenState extends State<PhotoReportScreen> {
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
-  XFile? _tempImage;
 
   Future<void> _takePicture() async {
     final image = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
-      _tempImage = image;
+      _image = image;
     });
   }
 
   Future<void> _savePicture() async {
-    if (_tempImage != null) {
-      final dir = await getApplicationDocumentsDirectory();
-      final path = dir.path;
-      final newImage = await File(_tempImage!.path).copy('$path/saved_image.jpg');
-      setState(() {
-        _image = XFile(newImage.path);
-      });
+    if (_image == null) {
+      return;
+    }
+
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final filePath = '${directory.path}/$fileName';
+      await File(_image!.path).copy(filePath);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Фото сохранено в $filePath')),
+      );
+    } catch (e) {
+      print('Ошибка при сохранении фото: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка при сохранении фото')),
+      );
     }
   }
 
@@ -39,9 +46,9 @@ class _PhotoReportScreenState extends State<PhotoReportScreen> {
       appBar: AppBar(
             title: Container(
               color: Colors.grey[800], // серый фон
-              padding: const EdgeInsets.all(8.0), 
-              child: const Center(
-              child: Text('Фото',
+              padding: EdgeInsets.all(8.0), 
+              child: Center(
+              child: Text('Фотоотчет',
                 style: TextStyle(color: Colors.white), // белый текст
               ),
             ),
@@ -51,18 +58,21 @@ class _PhotoReportScreenState extends State<PhotoReportScreen> {
         ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _image == null ? const Text('Нет фото')
-                : Image.file(File(_image!.path)),
+            _image == null ? Text('Нет фото') : Image.file(File(_image!.path)),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: _takePicture,
-              child: const Text('Сделать фото'),
+              child: Text('Сделать фото'),
             ),
-            ElevatedButton(
-              onPressed: _savePicture,
-              child: const Text('Сохранить фото'),
-            ),
-          ]
+            SizedBox(height: 10),
+            if (_image != null)
+              ElevatedButton(
+                onPressed: _savePicture,
+                child: Text('Сохранить фото'),
+              ),
+          ],
         ),
       ),
     );

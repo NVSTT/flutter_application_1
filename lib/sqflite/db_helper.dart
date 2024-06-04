@@ -45,13 +45,15 @@ class DBHelper {
 
 
   static Future<void> addUser() async {
+    String photoPath = 'flutter_aplication_1/assets/user_photo.jpg';
+
     await DBHelper.insert('users', {
     'username': 'test',
     'password': 'test',
     'firstName': 'Ярослав',
     'lastName': 'Моторный',
     'middleName': 'Евгеньевич',
-    'photo': 'flutter_application_1/assets/user_photo.jpg',
+    'photo': photoPath,
     'rank': 'Бригадир',
   });
 }
@@ -160,5 +162,17 @@ static Future<List<Map<String, dynamic>>> getChecklistItemsByChecklistId(String 
   );
   return result;
 }
+
+static Future<void> addTestData() async {
+
+    // Добавляем тестовые чек-листы
+    await addChecklist({'id': '1', 'title': 'Чек-лист 1', 'isCompleted': 0, 'photo': 'assets/checklist_photo.png'});
+    await addChecklist({'id': '2', 'title': 'Чек-лист 2', 'isCompleted': 0, 'photo': 'assets/checklist_photo.png'});
+
+    // Добавляем тестовые задачи
+    await addChecklistItem({'itemNumber': 1, 'description': 'Задача 1', 'isCompleted': 0, 'confirmationPhoto': 'assets/task_photo1.jpg', 'checklistId': '1'});
+    await addChecklistItem({'itemNumber': 2, 'description': 'Задача 2', 'isCompleted': 0, 'confirmationPhoto': 'assets/task_photo1.jpg', 'checklistId': '1'});
+    await addChecklistItem({'itemNumber': 3, 'description': 'Задача 3', 'isCompleted': 0, 'confirmationPhoto': 'assets/task_photo2.jpg', 'checklistId': '2'});
+  }
 
 }

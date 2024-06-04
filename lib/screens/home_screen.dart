@@ -3,27 +3,58 @@ import './checklist_screen.dart';
 import './calendar_screen.dart';
 import './photo_report_screen.dart';
 import './report_screen.dart';
+import './login_screen.dart';
 import 'package:flutter_application_1/sqflite/db_helper.dart';
 import 'dart:io';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  
+  @override
+  void _showSettingsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Настройки"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text("Сменить пароль"),
+              onTap: () {
+                // смене пароля
+                Navigator.pop(context); // диалоговое окно
+              },
+            ),
+            ListTile(
+              title: Text("Изменить фотографию профиля"),
+              onTap: () {
+                // фотографии профиля
+                Navigator.pop(context); //диалоговое окно
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Container(
-              color: Colors.grey[800], // серый фон
+              color: Colors.grey[800], 
               padding: const EdgeInsets.all(8.0), 
               child: const Center(
               child: Text('Главная страница',
-                style: TextStyle(color: Colors.white), // белый текст
+                style: TextStyle(color: Colors.white), 
               ),
             ),
           ),
-          backgroundColor: Colors.grey[800], // делаем AppBar темно-серым
-          elevation: 0, // убираем тень
+          backgroundColor: Colors.grey[800], 
+          elevation: 0, 
         ),
       drawer: Drawer(
         child: ListView(
@@ -51,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                       accountName: Text('$firstName $lastName'),
                       accountEmail: Text(rank),
                       currentAccountPicture: CircleAvatar(
-                        backgroundImage: FileImage(File(userData['photo'])),
+                        backgroundImage: FileImage(File('assets/user_photo.jpg')),
                       ),
                     );
                   }
@@ -63,41 +94,43 @@ class HomeScreen extends StatelessWidget {
               title: const Text('Создать чек-лист'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ChecklistScreen()));
+                    builder: (context) => ChecklistScreen()));
               },
             ),
             ListTile(
               title: const Text('Календарный план'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CalendarScreen()));
+                    builder: (context) => CalendarScreen()));
               },
             ),
             ListTile(
               title: const Text('Фотоотчет'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PhotoReportScreen()));
+                    builder: (context) => PhotoReportScreen()));
               },
             ),
             ListTile(
               title: const Text('Отчетность'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ReportScreen()));
+                    builder: (context) => ReportScreen()));
               },
             ),
             const Divider(), // Добавляем полоску
             ListTile(
               title: const Text('Настройки'),
               onTap: () {
-                // Ваш код для перехода к экрану настроек...
+                _showSettingsDialog(context);
               },
             ),
             ListTile(
               title: const Text('Выход'),
               onTap: () {
-                // Ваш код для выхода из системы...
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ));
               },
             ),
           ],
@@ -123,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>  const ChecklistScreen()));
+                        builder: (context) =>  ChecklistScreen()));
                   },
                 ),
               ),
@@ -143,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CalendarScreen()));
+                        builder: (context) => CalendarScreen()));
                   },
                 ),
               ),
@@ -163,7 +196,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PhotoReportScreen()));
+                        builder: (context) => PhotoReportScreen()));
                   },
                 ),
               ),
@@ -183,7 +216,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ReportScreen()));
+                        builder: (context) => ReportScreen()));
                   },
                 ),
               ),

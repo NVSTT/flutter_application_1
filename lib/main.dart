@@ -11,14 +11,14 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => TaskProvider()),
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
   DBHelper.addUser();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 255, 255)),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: LoginScreen(),
       routes: {
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => HomeScreen(),
         },
     );
   }

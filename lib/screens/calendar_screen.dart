@@ -25,11 +25,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void initState() {
     super.initState();
-    _events = {}; // Список событий по датам
+    _events = {}; // 
     _selectedEvents = ValueNotifier(_getEventsForDay(DateTime.now()));
     _eventController = TextEditingController();
     _calendarFormat = CalendarFormat.month;
-    _focusedDay = DateTime.utc(2024, 5, 1); // Обновленная инициализация
+    _focusedDay = DateTime.utc(2024, 5, 1); 
     _selectedDay = DateTime.now();
     _loadChecklists();
   }
@@ -62,17 +62,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          color: Colors.grey[800], // серый фон
+          color: Colors.grey[800], 
           padding: const EdgeInsets.all(8.0),
           child: const Center(
             child: Text(
               'Календарный план',
-              style: TextStyle(color: Colors.white), // белый текст
+              style: TextStyle(color: Colors.white), 
             ),
           ),
         ),
-        backgroundColor: Colors.grey[800], // делаем AppBar темно-серым
-        elevation: 0, // убираем тень
+        backgroundColor: Colors.grey[800], 
+        elevation: 0, 
       ),
       body: Column(
         children: [
@@ -101,7 +101,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(value[index].toString()),
-                      // Здесь можно отобразить другие детали задачи
+                      // отобразить другие детали задачи
                     );
                   },
                 );

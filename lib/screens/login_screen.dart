@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo.png', height: 150),
+            Image.asset('assets/logo.png', height: 200),
             const SizedBox(height: 40),
             const Text('Контроль и учет строительных работ', style: TextStyle(fontSize: 14)),
             const SizedBox(height: 20),
